@@ -1,10 +1,9 @@
 #include <stdio.h>      // printf
-#include <stdlib.h>     // EXIT_SUCCESS, EXIT_FAILURE, exit
-#include <sys/time.h>   // clock_t, CLOCKS_PER_SEC, gettimeofday
+#include <time.h>       // clock_t, CLOCKS_PER_SEC
+#include <sys/time.h>   // gettimeofday
 #include <unistd.h>     // fork, getpid, getppid, sleep, exec*
 #include <sys/wait.h>   // wait
-
-typedef enum { false, true } bool;
+#include <stdbool.h>
 
 void measure_sys_call(void) {
     const int iter = 5;
@@ -47,7 +46,7 @@ bool measure_ctx_switch(void) {
 int main(void) {
     measure_sys_call();
 
-    if (measure_ctx_switch() == false) { return 1; }
+    if (!measure_ctx_switch()) { return 1; }
 
     return 0;
 }
